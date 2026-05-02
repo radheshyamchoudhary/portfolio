@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radheshyam Choudhary - WebSphere &amp; Linux Administrator</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a2332 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+      flex-shrink: 0;
+    }
+
+    nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+    }
+
+    nav-links a:hover,
+    nav-links a.active {
+      color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    /* Main content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .page-section {
+      width: 100%;
+      display: block;
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Home Section */
+    .home-hero {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(30, 58, 95, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+      width: 100%;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 600px;
+      animation: slideUp 0.8s ease;
+      width: 100%;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 5rem;
+      border: 4px solid #3b82f6;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #f1f5f9;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-location {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #3b82f6;
+      border: 2px solid #3b82f6;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* About & Experience */
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(51, 65, 85, 0.4);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(59, 130, 246, 0.5);
+      background: rgba(30, 41, 59, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+      color: #3b82f6;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .card-content {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .skill-category {
+      margin-bottom: 2rem;
+    }
+
+    .skill-label {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .skill-badge {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .bullet-list {
+      list-style: none;
+      color: #cbd5e1;
+    }
+
+    .bullet-list li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .bullet-list li:before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: bold;
+    }
+
+    /* Contact Section */
+    .contact-container {
+      text-align: center;
+    }
+
+    .contact-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(51, 65, 85, 0.4);
+      border-radius: 1rem;
+      padding: 3rem;
+      max-width: 500px;
+      margin: 0 auto;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3b82f6;
+    }
+
+    .contact-info a {
+      color: #3b82f6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: #8b5cf6;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(51, 65, 85, 0.3);
+      padding: 2rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0.75rem 1rem;
+      }
+
+      nav-content {
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+      }
+
+      nav-links {
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      nav-links a {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.65rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .section-container {
+        padding: 2rem 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+      }
+
+      .contact-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 0.5rem 0.75rem;
+      }
+
+      .logo {
+        font-size: 1rem;
+      }
+
+      nav-links {
+        gap: 0.25rem;
+      }
+
+      nav-links a {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .hero-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero-location {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+        margin: 0 auto 1.5rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-container {
+        padding: 1.5rem 1rem;
+      }
+
+      .card {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-title {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .card-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .skill-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .contact-info {
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-card {
+        padding: 1rem;
+      }
+
+      .bullet-list li {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1.2rem;
+      }
+    }
+  </style>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper"><!-- Navigation -->
+   <nav><nav-content>
+     <div class="logo">
+      RadheShyam
+     </div>
+     <nav-links>
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#contact" class="nav-link">Contact</a>
+     </nav-links>
+    </nav-content>
+   </nav><!-- Main Content -->
+   <div class="content"><!-- Home Page -->
+    <section class="page-section active" id="home">
+     <div class="home-hero">
+      <div class="hero-content">
+       <div class="profile-image">
+        <img src="image.jpg">
+       </div>
+       <h1 class="hero-title">Radheshyam Choudhary</h1>
+       <p class="hero-subtitle">WebSphere &amp; Linux Administrator | RHCSA Certified | Enterprise Banking Support Specialist</p>
+       <div class="hero-location"><i data-lucide="map-pin" style="width: 18px; height: 18px;"></i> Thane, Maharashtra – 400604
+       </div>
+       <div class="button-group"><a href="https://drive.google.com/file/d/155dE1ICWKEgiEBeMp6eBNrFW8wV_mtJr/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary"> <i data-lucide="download" style="width: 18px; height: 18px;"></i> Download Resumes </a> <a href="#contact" class="btn btn-secondary"> <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i> Get in Touch </a>
+       </div>
+      </div>
+     </div>
+    </section><!-- About Page -->
+    <section class="page-section" id="about">
+     <div class="section-container">
+      <h2 class="section-title">About Me</h2>
+      <div class="card">
+       <h3 class="card-title">Professional Summary</h3>
+       <p class="card-content" style="line-height: 1.8; margin-bottom: 1.5rem;">RHCSA-certified professional with 5+ years of IT experience, including 2.5 years specializing in WebSphere application administration. Currently working as a WebSphere Administrator at Wipro for ICICI Bank's mission-critical banking platforms. Proven expertise in Linux administration, WebSphere deployment, performance monitoring, incident management, and disaster recovery with a track record of achieving 99.9% system availability.</p>
+       <p class="card-content" style="line-height: 1.8;">My expertise spans middleware technologies, enterprise security, DevOps practices, and ITIL processes. I'm passionate about maintaining high-availability systems, optimizing application performance, and providing exceptional L1/L2 technical support to ensure seamless banking operations.</p>
+      </div>
+     </div>
+    </section><!-- Experience Page -->
+    <section class="page-section" id="experience">
+     <div class="section-container">
+      <h2 class="section-title">Work Experience</h2>
+      <div class="card">
+       <h3 class="card-title">IBM WebSphere Application Administrator</h3>
+       <p class="card-subtitle">Wipro | Nov 2023 – Present</p>
+       <ul class="bullet-list">
+        <li>Supporting enterprise banking applications for ICICI Bank, including Corporate Internet Banking (CIB) and Mobile Banking platforms in a high-availability production environment</li>
+        <li>Administering Red Hat Enterprise Linux servers for IBM WebSphere Application Server, ensuring system stability, performance optimization, and uptime</li>
+        <li>Patching and upgrading IBM WebSphere Application Server and IBM HTTP Server across environments</li>
+        <li>Managing application deployments and configuration changes in production and UAT, ensuring smooth releases with minimal disruption</li>
+        <li>Monitoring system performance using Dynatrace, AppDynamics, OEM and App360, proactively identifying and resolving bottlenecks</li>
+        <li>Troubleshooting production incidents through log analysis, thread dumps, heap dumps, and monitoring tools</li>
+        <li>Managing SSL certificates, keystores, and secure communication channels for enterprise applications</li>
+        <li>Overseeing critical financial batch processing (CRP, M3) and job scheduling via Control-M, utilizing SQL for data transition monitoring</li>
+       </ul>
+      </div>
+      <div class="card">
+       <h3 class="card-title">Linux Administrator</h3>
+       <p class="card-subtitle">Wipro | Nov 2023 – Present (Parallel Role)</p>
+       <ul class="bullet-list">
+        <li>Provided L2 support for Linux servers in production and staging environments</li>
+        <li>Managed user accounts, groups, and permissions as per organizational security policies</li>
+        <li>Performed system monitoring and health checks to ensure server availability and performance</li>
+        <li>Troubleshot server, network, and application issues to minimize downtime</li>
+        <li>Handled incident, change, and service requests using ticketing tools like ServiceNow/JIRA</li>
+        <li>Managed disk space, file systems, and LVM volumes to ensure optimal storage utilization</li>
+        <li>Installed, configured, and updated Linux packages using YUM/APT package managers</li>
+       </ul>
+      </div>
+      <div class="card">
+       <h3 class="card-title">Project: Corporate Internet Banking (CIB) Platform</h3>
+       <p class="card-subtitle">Client: ICICI Bank | Duration: Nov 2023 – Present</p>
+       <ul class="bullet-list">
+        <li>Enterprise banking application serving both India and International corporate banking customers</li>
+        <li>Provide L1/L2 application and middleware support for mission-critical banking applications</li>
+        <li>Maintain WebSphere environments supporting high-availability financial transactions</li>
+        <li>Monitor application performance and ensure minimal downtime and SLA compliance</li>
+        <li>Coordinate with development teams during production releases and deployments</li>
+       </ul>
+      </div>
+     </div>
+    </section><!-- Skills Page -->
+    <section class="page-section" id="skills">
+     <div class="section-container">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="card">
+       <div class="skill-category"><span class="skill-label">Middleware &amp; Messaging</span>
+        <div class="skills-list"><span class="skill-badge">IBM WebSphere (WAS ND)</span> <span class="skill-badge">WebSphere Liberty</span> <span class="skill-badge">IBM HTTP Server</span> <span class="skill-badge">IBM MQ (v9+)</span> <span class="skill-badge">MQ Managed File Transfer</span>
+        </div>
+       </div>
+       <div class="skill-category"><span class="skill-label">Operating Systems &amp; Security</span>
+        <div class="skills-list"><span class="skill-badge">Red Hat Enterprise Linux 9.x</span> <span class="skill-badge">UNIX/AIX</span> <span class="skill-badge">Windows Server</span> <span class="skill-badge">SSL/TLS Certificates</span> <span class="skill-badge">Firewall Administration</span> <span class="skill-badge">SSH Administration</span>
+        </div>
+       </div>
+       <div class="skill-category"><span class="skill-label">Observability &amp; Monitoring</span>
+        <div class="skills-list"><span class="skill-badge">Dynatrace</span> <span class="skill-badge">AppDynamics</span> <span class="skill-badge">Oracle OEM</span> <span class="skill-badge">App360</span> <span class="skill-badge">Control-M Job Scheduling</span>
+        </div>
+       </div>
+       <div class="skill-category"><span class="skill-label">System Administration</span>
+        <div class="skills-list"><span class="skill-badge">User/Group Management</span> <span class="skill-badge">File System Management</span> <span class="skill-badge">LVM &amp; Disk Partitioning</span> <span class="skill-badge">GRUB Troubleshooting</span> <span class="skill-badge">Kernel Tuning</span> <span class="skill-badge">Process Management</span>
+        </div>
+       </div>
+       <div class="skill-category"><span class="skill-label">DevOps &amp; ITIL</span>
+        <div class="skills-list"><span class="skill-badge">UrbanCode Deploy</span> <span class="skill-badge">ServiceNow ITSM</span> <span class="skill-badge">Incident Management</span> <span class="skill-badge">Change Management</span> <span class="skill-badge">Problem Management</span> <span class="skill-badge">Root Cause Analysis</span>
+        </div>
+       </div>
+       <div class="skill-category"><span class="skill-label">Package Management &amp; Scripting</span>
+        <div class="skills-list"><span class="skill-badge">YUM/RPM</span> <span class="skill-badge">Bash/Shell Scripting</span> <span class="skill-badge">SQL</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Contact Page -->
+    <section class="page-section" id="contact">
+     <div class="section-container">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-container">
+       <div class="contact-card">
+        <div class="contact-info">
+         <div class="contact-icon"><i data-lucide="phone" style="width: 20px; height: 20px;"></i>
+         </div>
+         <div>
+          <p style="color: #cbd5e1;">Phone</p>
+          <p style="font-weight: 600;">+91 7506760143</p>
+         </div>
+        </div>
+        <div class="contact-info">
+         <div class="contact-icon"><i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+         </div>
+         <div>
+          <p style="color: #cbd5e1;">Email</p><a href="mailto:radheshyamchaudhary54@gmail.com">radheshyamchaudhary54@gmail.com</a>
+         </div>
+        </div>
+        <div class="contact-info">
+         <div class="contact-icon"><i data-lucide="map-pin" style="width: 20px; height: 20px;"></i>
+         </div>
+         <div>
+          <p style="color: #cbd5e1;">Location</p>
+          <p style="font-weight: 600;">Thane, Maharashtra – 400604</p>
+         </div>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(51, 65, 85, 0.3);">
+         <p style="color: #cbd5e1; margin-bottom: 1rem;">Feel free to reach out for opportunities or collaborations!</p><a href="mailto:radheshyamchaudhary54@gmail.com" class="btn btn-primary" style="width: 100%; justify-content: center;"> <i data-lucide="send" style="width: 18px; height: 18px;"></i> Send an Email </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div><!-- Footer -->
+   <footer>
+    <p>© 2024 Radheshyam Choudhary. All rights reserved. | RHCSA Certified Professional</p>
+   </footer>
+  </div>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Update active nav link based on scroll position
+    window.addEventListener('scroll', updateActiveNavLink);
+    window.addEventListener('hashchange', updateActiveNavLink);
+
+    function updateActiveNavLink() {
+      const sections = document.querySelectorAll('.page-section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop - 100) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSection) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateActiveNavLink();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f573c3cc1433a26',t:'MTc3NzcyNzEwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
